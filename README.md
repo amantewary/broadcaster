@@ -5,7 +5,7 @@ An open-source, multi-platform publishing engine. Broadcast your content to Medi
 Broadcaster is an alternative to paid tools like Ayrshare or Make.com, designed specifically for developers who want to own their publishing pipeline.
 
 ## 🚀 Features
-- **Medium:** Direct publishing via API (or session tokens).
+- **Medium:** Dual-mode publishing. Supports the official API (if you have a token) OR **Session Injection** (using browser cookies) to bypass token gatekeeping.
 - **Substack:** Automated drafts via the Email-to-Post gateway.
 - **LinkedIn:** (Coming Soon) via OAuth2.
 - **Unified Interface:** One command to rule them all.
@@ -25,7 +25,15 @@ from broadcaster.core import Broadcaster
 publisher = Broadcaster()
 
 # 1. Setup your platforms
-publisher.setup_adapter("medium", "YOUR_MEDIUM_TOKEN")
+
+# Medium (Session Injection Mode)
+# Use this if you don't have an official API token.
+publisher.setup_adapter("medium", {
+    "sid": "your_sid_cookie",
+    "uid": "your_uid_cookie"
+})
+
+# Substack (Email-to-Post)
 publisher.setup_adapter("substack", {
     "email": "your_gmail@gmail.com", 
     "password": "GMAIL_APP_PASSWORD"
